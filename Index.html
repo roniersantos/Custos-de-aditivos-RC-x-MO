@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custos de Aditivos | Rio Claro vs. Moreno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00549A;
+            --white: #FFFFFF;
+            --light-bg: #F8F9FA;
+            --dark-text: #212529;
+            --light-text: #6c757d;
+            --border-color: #dee2e6;
+            --accent-red: #E74C3C;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 25px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: auto;
+        }
+        .card {
+            background-color: var(--white);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 4px solid var(--primary-blue);
+            padding-bottom: 15px;
+        }
+        header .logo {
+            max-height: 70px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        .kpi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .kpi-box {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border-bottom: 4px solid var(--primary-blue);
+            text-align: center;
+        }
+        .kpi-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+        .kpi-box .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .kpi-box .value.positive {
+            color: var(--accent-red);
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        thead th {
+            font-weight: 600;
+            color: var(--primary-blue);
+            background-color: var(--light-bg);
+        }
+        tbody tr:nth-child(even) { background-color: #f8f9fa; }
+        tfoot {
+            font-weight: bold;
+            background-color: #e3f2fd;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <img src="https://empresas.tramontina.com.br/webruntime/org-asset/ef4c16ca4b/resource/0818c0000030FTI" alt="Logo Tramontina" class="logo">
+                <h1>Custos de Aditivos - Filiais Rio Claro x Moreno</h1>
+            </header>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Tabela Detalhada de Custos</h2>
+            <table id="cost-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Custo/kg (RC)</th>
+                        <th>Custo/kg (MO)</th>
+                        <th>Consumo (RC)</th>
+                        <th>Consumo (MO)</th>
+                        <th>Custo Total (RC)</th>
+                        <th>Custo Total (MO)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td>TOTAIS</td>
+                        <td id="total-cp-rc"></td>
+                        <td id="total-cp-mo"></td>
+                        <td id="total-consumo-rc"></td>
+                        <td id="total-consumo-mo"></td>
+                        <td id="total-custo-rc-table"></td>
+                        <td id="total-custo-mo-table"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">Análise de Indicadores</h2>
+            <div class="kpi-container">
+                 <div class="kpi-box">
+                    <h3>Custo Ponderado/Kg (RC)</h3>
+                    <p class="value" id="final-rc-kg">R$ 0,00</p>
+                </div>
+                <div class="kpi-box">
+                    <h3>Custo Ponderado/Kg (MO)</h3>
+                    <p class="value" id="final-mo-kg">R$ 0,00</p>
+                </div>
+                <div class="kpi-box">
+                    <h3>Diferença Ponderada (%)</h3>
+                    <p class="value positive" id="diff-ponderado-percent">+0,0%</p>
+                </div>
+                <div class="kpi-box">
+                    <h3>Custo Extra Mensal (MO)</h3>
+                    <p class="value positive" id="diff-total-value">+ R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="https://docs.google.com/spreadsheets/d/1C7ytOuC3OlLh4C43JQI-08LiJoPa7HbWGYqsqKgOHbI/edit?usp=sharing" target="_blank">Acessar Fonte de Dados</a>
+            <p class="footer-text">Ronier Cezar dos Santos - 15/09/2025</p>
+            <p class="footer-text">Dados extraídos do QLIK BI SUPRIMENTOS, CMP025 E CMP702</p>
+        </footer>
+    </div>
+
+    <script>
+        const costData = [
+            { desc: 'Carbonato', cp_rc: 1.27, cp_mo: 1.86, consumo_rc: 16850, consumo_mo: 10160 },
+            { desc: 'CZ3071', cp_rc: 15.89, cp_mo: 18.16, consumo_rc: 1020, consumo_mo: 1889 },
+            { desc: 'SP15', cp_rc: 21.06, cp_mo: 27.72, consumo_rc: 50, consumo_mo: 63 },
+            { desc: 'CAF', cp_rc: 29.99, cp_mo: 38.66, consumo_rc: 215, consumo_mo: 192 },
+            { desc: 'PIGMENTO AM', cp_rc: 24.47, cp_mo: 26.64, consumo_rc: 518, consumo_mo: 525 },
+            { desc: 'PIGMENTO LR', cp_rc: 42.78, cp_mo: 46.54, consumo_rc: 190, consumo_mo: 28 }
+        ];
+        
+        costData.forEach(item => {
+            item.total_rc = item.cp_rc * item.consumo_rc;
+            item.total_mo = item.cp_mo * item.consumo_mo;
+        });
+
+        const totals = {
+            cp_rc: costData.reduce((sum, item) => sum + item.cp_rc, 0),
+            cp_mo: costData.reduce((sum, item) => sum + item.cp_mo, 0),
+            consumo_rc: costData.reduce((sum, item) => sum + item.consumo_rc, 0),
+            consumo_mo: costData.reduce((sum, item) => sum + item.consumo_mo, 0),
+            custo_rc: costData.reduce((sum, item) => sum + item.total_rc, 0),
+            custo_mo: costData.reduce((sum, item) => sum + item.total_mo, 0)
+        };
+        
+        const finalKgCost = {
+            rc: totals.custo_rc / totals.consumo_rc,
+            mo: totals.custo_mo / totals.consumo_mo
+        };
+
+        const formatBRL = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const formatNumber = (value) => value.toLocaleString('pt-BR');
+
+        // --- PREENCHER KPIs ---
+        document.getElementById('final-rc-kg').innerText = formatBRL(finalKgCost.rc);
+        document.getElementById('final-mo-kg').innerText = formatBRL(finalKgCost.mo);
+
+        const diffPonderadoPercent = ((finalKgCost.mo / finalKgCost.rc) - 1) * 100;
+        document.getElementById('diff-ponderado-percent').innerText = `+${diffPonderadoPercent.toFixed(1)}%`;
+        
+        const diffTotalValue = totals.custo_mo - totals.custo_rc;
+        document.getElementById('diff-total-value').innerText = `+${formatBRL(diffTotalValue)}`;
+
+        // --- PREENCHER TABELA ---
+        const tableBody = document.querySelector('#cost-table tbody');
+        costData.forEach(item => {
+            const row = `<tr>
+                <td>${item.desc}</td>
+                <td>${formatBRL(item.cp_rc)}</td>
+                <td>${formatBRL(item.cp_mo)}</td>
+                <td>${formatNumber(item.consumo_rc)}</td>
+                <td>${formatNumber(item.consumo_mo)}</td>
+                <td>${formatBRL(item.total_rc)}</td>
+                <td>${formatBRL(item.total_mo)}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+
+        document.getElementById('total-cp-rc').innerText = formatBRL(totals.cp_rc);
+        document.getElementById('total-cp-mo').innerText = formatBRL(totals.cp_mo);
+        document.getElementById('total-consumo-rc').innerText = formatNumber(totals.consumo_rc);
+        document.getElementById('total-consumo-mo').innerText = formatNumber(totals.consumo_mo);
+        document.getElementById('total-custo-rc-table').innerText = formatBRL(totals.custo_rc);
+        document.getElementById('total-custo-mo-table').innerText = formatBRL(totals.custo_mo);
+    </script>
+</body>
+</html>
